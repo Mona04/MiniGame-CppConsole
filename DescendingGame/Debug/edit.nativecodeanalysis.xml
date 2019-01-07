@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\samona\desktop\내려가기 게임\descendinggame\descendinggame\</FILEPATH>
+      <FILENAME>edit.cpp</FILENAME>
+      <LINE>4</LINE>
+      <COLUMN>6</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'Edit::cur_obj_num' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>Edit::{ctor}</FUNCTION>
+    <DECORATED>??0Edit@@QAE@PAVManipulate_Screen@@@Z</DECORATED>
+    <FUNCLINE>4</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\samona\desktop\내려가기 게임\descendinggame\descendinggame\</FILEPATH>
+      <FILENAME>edit.cpp</FILENAME>
+      <LINE>4</LINE>
+      <COLUMN>6</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'Edit::player_direct' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>Edit::{ctor}</FUNCTION>
+    <DECORATED>??0Edit@@QAE@PAVManipulate_Screen@@@Z</DECORATED>
+    <FUNCLINE>4</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\samona\desktop\내려가기 게임\descendinggame\descendinggame\</FILEPATH>
+      <FILENAME>edit.cpp</FILENAME>
+      <LINE>4</LINE>
+      <COLUMN>6</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'Edit::is_on' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>Edit::{ctor}</FUNCTION>
+    <DECORATED>??0Edit@@QAE@PAVManipulate_Screen@@@Z</DECORATED>
+    <FUNCLINE>4</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\samona\desktop\내려가기 게임\descendinggame\descendinggame\</FILEPATH>
+      <FILENAME>edit.cpp</FILENAME>
+      <LINE>4</LINE>
+      <COLUMN>6</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'Edit::player_x' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>Edit::{ctor}</FUNCTION>
+    <DECORATED>??0Edit@@QAE@PAVManipulate_Screen@@@Z</DECORATED>
+    <FUNCLINE>4</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\samona\desktop\내려가기 게임\descendinggame\descendinggame\</FILEPATH>
+      <FILENAME>edit.cpp</FILENAME>
+      <LINE>4</LINE>
+      <COLUMN>6</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'Edit::player_y' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>Edit::{ctor}</FUNCTION>
+    <DECORATED>??0Edit@@QAE@PAVManipulate_Screen@@@Z</DECORATED>
+    <FUNCLINE>4</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\samona\desktop\내려가기 게임\descendinggame\descendinggame\</FILEPATH>
+      <FILENAME>edit.cpp</FILENAME>
+      <LINE>4</LINE>
+      <COLUMN>6</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'Edit::cur_upon_line' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>Edit::{ctor}</FUNCTION>
+    <DECORATED>??0Edit@@QAE@PAVManipulate_Screen@@@Z</DECORATED>
+    <FUNCLINE>4</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\samona\desktop\내려가기 게임\descendinggame\descendinggame\</FILEPATH>
+      <FILENAME>edit.cpp</FILENAME>
+      <LINE>62</LINE>
+      <COLUMN>10</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: '_getch'.</DESCRIPTION>
+    <FUNCTION>Edit::New_or_Load</FUNCTION>
+    <DECORATED>?New_or_Load@Edit@@QAEXXZ</DECORATED>
+    <FUNCLINE>41</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

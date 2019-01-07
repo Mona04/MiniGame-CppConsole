@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\samona\desktop\내려가기 게임\descendinggame\descendinggame\</FILEPATH>
+      <FILENAME>sound.cpp</FILENAME>
+      <LINE>4</LINE>
+      <COLUMN>11</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'Sound_Set::channel' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>Sound_Set::{ctor}</FUNCTION>
+    <DECORATED>??0Sound_Set@@QAE@XZ</DECORATED>
+    <FUNCLINE>4</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\samona\desktop\내려가기 게임\descendinggame\descendinggame\</FILEPATH>
+      <FILENAME>sound.cpp</FILENAME>
+      <LINE>4</LINE>
+      <COLUMN>11</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'Sound_Set::g_Sound' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>Sound_Set::{ctor}</FUNCTION>
+    <DECORATED>??0Sound_Set@@QAE@XZ</DECORATED>
+    <FUNCLINE>4</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\samona\desktop\내려가기 게임\descendinggame\descendinggame\</FILEPATH>
+      <FILENAME>sound.cpp</FILENAME>
+      <LINE>4</LINE>
+      <COLUMN>11</COLUMN>
+    </SFA>
+    <DEFECTCODE>26439</DEFECTCODE>
+    <DESCRIPTION>This kind of function may not throw. Declare it 'noexcept' (f.6).</DESCRIPTION>
+    <FUNCTION>Sound_Set::{ctor}</FUNCTION>
+    <DECORATED>??0Sound_Set@@QAE@XZ</DECORATED>
+    <FUNCLINE>4</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>
