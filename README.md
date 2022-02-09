@@ -2,7 +2,7 @@
 
 C++ Console Game
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/TWcySjsfLNE" frameborder="0" allowfullscreen></iframe>
+[![YoutubeImage](https://img.youtube.com/vi/TWcySjsfLNE/0.jpg)](https://youtu.be/TWcySjsfLNE)
 
 [Full Infomation](https://mona04.github.io/posts/portfolio/Cpp-Console-MiniGame/)
 
