@@ -6,6 +6,11 @@ C++ Console Game
 
 [Full Infomation](https://mona04.github.io/posts/portfolio/Cpp-Console-MiniGame/)
 
+
+## Module Dependency
+
+```fmod 2.2.5```
+
 ## Key
 
 ### Editor
