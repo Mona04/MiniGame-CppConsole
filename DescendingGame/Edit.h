@@ -10,7 +10,7 @@ class Edit
 {
 private:
 	Player player;
-	Map map;
+	std::unique_ptr<Map> map = nullptr;
 	Manipulate_Screen* scr;
 	
 	std::vector<char> cur_obj[30];

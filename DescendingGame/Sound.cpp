@@ -1,13 +1,14 @@
 #include "stdafx.h"
 #include "Sound.h"
 
-Sound_Set::Sound_Set()
-{
-	volume = 0.5f;
-	isPlaying = 0;
 
-	FMOD_System_Create(&g_System);
+Sound_Set::Sound_Set() : volume(0.5f)
+{
+	std::fill(isPlaying, isPlaying + 9, 0);
+	FMOD_System_Create(&g_System, FMOD_VERSION);
 	FMOD_System_Init(g_System, 32, FMOD_INIT_NORMAL, NULL);
+
+	// Hardcoding is not recommended but... 
 
 	FMOD_System_CreateSound(g_System, "..\\sound\\Colorful_Night.mp3",
 		FMOD_LOOP_NORMAL, 0, &g_Sound[0]);
@@ -39,8 +40,8 @@ Sound_Set::~Sound_Set()
 
 void Sound_Set::On(int var)
 {
-	FMOD_Channel_IsPlaying(channel[var], &isPlaying);
-	if(!isPlaying)
+	FMOD_Channel_IsPlaying(channel[var], isPlaying+var);
+	if(!isPlaying[var])
 		FMOD_System_PlaySound(g_System, g_Sound[var], NULL, 0, &channel[var]);
 }
 

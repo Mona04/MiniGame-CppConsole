@@ -12,7 +12,7 @@
 class Play
 {
 	Player player;
-	Map map;
+	std::unique_ptr<Map> map;
 	Skill skill;
 
 	Manipulate_Screen* scr;

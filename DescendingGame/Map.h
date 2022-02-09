@@ -12,6 +12,9 @@ class Map
 private:
 	string file_path = "../dot/map/";
 	Manipulate_Screen* scr;
+	ifstream iFile;
+	ofstream oFile;
+
 
 public:
 	string name;
@@ -23,8 +26,8 @@ public:
 	~Map();
 
 	void New(string file_name);
-	void Load(string file_name);
-	void Load(string file_name, int var);
+	void Load(string file_name, int mode);
+	void UnLoad();
 	void Map_Input(int var, int in_x, int in_y, char in_char);
 	void Show();
 	void Move_Frame(int var);

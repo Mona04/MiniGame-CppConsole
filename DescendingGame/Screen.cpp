@@ -35,7 +35,6 @@ Manipulate_Screen::Manipulate_Screen()
 void Manipulate_Screen::Flipping()
 {
 	// ¿Œµ¶Ω∫∞° 0, 1 ∑Œ πŸ≤Ó∏Èº≠ »≠∏È¿Ã ±ÚΩ”»˜ πŸ≤Ò
-	Sleep(0);
 	SetConsoleActiveScreenBuffer(s_buffer[s_b_index]);
 	s_b_index = !s_b_index;
 }

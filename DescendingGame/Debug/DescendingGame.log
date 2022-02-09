@@ -1,3 +1,2 @@
-﻿  DescendingGame.cpp
-c:\users\samona\desktop\내려가기 게임\descendinggame\descendinggame\descendinggame.cpp(31): warning C4326: return type of 'main' should be 'int' instead of 'void'
-  DescendingGame.vcxproj -> C:\Users\Samona\Desktop\내려가기 게임\DescendingGame\Debug\DescendingGame.exe
+﻿  Map.cpp
+  DescendingGame.vcxproj -> C:\Users\dh045\source\repos\Mona04\Descending-Game\Debug\DescendingGame.exe

@@ -28,7 +28,7 @@ Play::Play(Manipulate_Screen *scr, Sound_Set *sound)
 
 void Play::Reset(int in_x, int in_y)
 {
-	map = Map(scr);
+	map = std::make_unique<Map>(scr);
 	player.Reset(in_x, in_y);
 	map_name = "";
 
@@ -65,7 +65,7 @@ void Play::Load_Map()
 			if (_kbhit()) {
 				scr->Flipping();
 				cur[0] = _getch();
-				_getch();
+				//_getch();
 				if (cur[0] == 8) {   // back space
 					if (input.length()) {
 						cur[0] = ' ';
@@ -81,7 +81,7 @@ void Play::Load_Map()
 				}
 			}
 		}
-		map.Load(input.substr(0,input.length() - 1), 1);
+		map->Load(input.substr(0,input.length() - 1), 1);
 		is_on = 1;
 		delete cur;
 	}
@@ -93,8 +93,8 @@ void Play::Set_Test(string map_name, int in_x, int in_y, int cur_upon_line)
 	for (int i = 0; i < map_name.length(); i++)
 		tmp += map_name[i];
 	this->Reset(in_x, in_y);
-	map.Load(map_name, 1);
-	map.cur_upon_line = cur_upon_line;
+	map->Load(map_name, 1);
+	map->cur_upon_line = cur_upon_line;
 	is_on = 1;
 }
 
@@ -105,15 +105,16 @@ Play::~Play()
 void Play::Show()
 {
 	if (is_on == 1) {
-		map.Show();
+		map->Show();
 		player.Show();
 		Option_Show();
 		if (is_skill == 1) {
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < 11; i++) {
 				skill.Show(player.x, player.y);
 				scr->Flipping();
 				Sleep(33);
 			}
+			Map_Engine(); // 원래 여깃으면 안되는데 key 입력 해야만 업뎃되니까 강제로 업뎃하게 함.
 			is_skill = 0;
 		}
 	}
@@ -121,7 +122,7 @@ void Play::Show()
 
 void Play::Option_Show()
 {
-	string text = "map name is " + map.name + " and power | ";
+	string text = "map name is " + map->name + " and power | ";
 
 	std::vector<char> writable(text.begin(), text.end());
 	for(int i = 0 ; i<points ; i++)
@@ -144,7 +145,7 @@ void Play::Check_Input(int var)
 		case 0:   // right
 		{
 			for (int i = 0; i < 3; i++) {
-				char tmp = map.map_txt[player.y + i + 1][player.x + 2];
+				char tmp = map->map_txt[player.y + i + 1][player.x + 2];
 				if (tmp == 6 || tmp == 127) {
 					break;
 				}
@@ -158,7 +159,7 @@ void Play::Check_Input(int var)
 		case 1:   // left
 		{
 			for (int i = 0; i < 3; i++) {
-				char tmp = map.map_txt[player.y + i + 1][player.x - 1];
+				char tmp = map->map_txt[player.y + i + 1][player.x - 1];
 				if (tmp == 6 || tmp == 127) {
 					break;
 				}
@@ -190,7 +191,7 @@ void Play::Check_Input(int var)
 		{
 			if (is_player_jump != 0 && is_air_dash == 0) {
 				for (int i = 0; i < 10; i++) {
-					map.Map_Input(0, player.x + player_direct, player.y + 1, '=');
+					map->Map_Input(0, player.x + player_direct, player.y + 1, '=');
 					Check_Input(player_direct);
 					sound->On(2);
 				}
@@ -221,17 +222,17 @@ int Play::Map_Engine()
 	for (int j = 0; j < 40; j++) {
 		for (int i = 0; i < 150; i++) {
 
-			char key = map.map_txt[j][i];
+			char key = map->map_txt[j][i];
 
 			if (is_skill == 1) {
 				if (key == 30 || key == 31 || key == 3 || key == 42) {
 					if(player.x-5<i && i<player.x+8)
-						map.Map_Input(0, i, j, ' ');
+						map->Map_Input(0, i, j, ' ');
 				}
 				for (int t = 0; t < 10; t++) {
 					if (key == 48 + t) {
 						if (player.x - 5<i && i<player.x + 8)
-							map.Map_Input(0, i, j, ' ');
+							map->Map_Input(0, i, j, ' ');
 					}
 				}
 			}
@@ -242,16 +243,16 @@ int Play::Map_Engine()
 				{
 					case('='):
 					{
-						map.Map_Input(0, i, j, ' ');
+						map->Map_Input(0, i, j, ' ');
 						break;
 					}
 
 					case(49):   // 1  saw tooth right
 					{
 						if (i < 145) {
-							if (map.map_txt[j][i+4] == ' ') {
-								map.Map_Input(0, i, j, ' ');
-								map.Map_Input(0, i + 4, j, '2');
+							if (map->map_txt[j][i+4] == ' ') {
+								map->Map_Input(0, i, j, ' ');
+								map->Map_Input(0, i + 4, j, '2');
 								for_dupulicate[150 * j + (i+4)] = 1;
 							}
 						}
@@ -260,9 +261,9 @@ int Play::Map_Engine()
 					case(50):   // 2   up
 					{
 						if (j > 3) {
-							if (map.map_txt[j-2][i] == ' ') {
-								map.Map_Input(0, i, j, ' ');
-								map.Map_Input(0, i, j-2, '3');
+							if (map->map_txt[j-2][i] == ' ') {
+								map->Map_Input(0, i, j, ' ');
+								map->Map_Input(0, i, j-2, '3');
 								for_dupulicate[150 * (j-2) + i] = 1;
 							}
 						}
@@ -271,9 +272,9 @@ int Play::Map_Engine()
 					case(51):   // 3  saw tooth  left
 					{
 						if (i > 5) {
-							if (map.map_txt[j][i - 4] == ' ') {
-								map.Map_Input(0, i, j, ' ');
-								map.Map_Input(0, i - 4, j, '4');
+							if (map->map_txt[j][i - 4] == ' ') {
+								map->Map_Input(0, i, j, ' ');
+								map->Map_Input(0, i - 4, j, '4');
 								for_dupulicate[150 * j + i-4] = 1;
 							}
 						}
@@ -282,9 +283,9 @@ int Play::Map_Engine()
 					case(52):   // 4   saw tooth down
 					{
 						if (j < 37) {
-							if (map.map_txt[j+2][i] == ' ') {
-								map.Map_Input(0, i, j, ' ');
-								map.Map_Input(0, i, j+2, '1');
+							if (map->map_txt[j+2][i] == ' ') {
+								map->Map_Input(0, i, j, ' ');
+								map->Map_Input(0, i, j+2, '1');
 								for_dupulicate[150 * (j+2) + i] = 1;
 							}
 						}
@@ -294,9 +295,9 @@ int Play::Map_Engine()
 					case(53):   // 5   down
 					{
 						if (j < 37) {
-							if (map.map_txt[j + 2][i] == ' ') {
-								map.Map_Input(0, i, j, ' ');
-								map.Map_Input(0, i, j + 2, '6');
+							if (map->map_txt[j + 2][i] == ' ') {
+								map->Map_Input(0, i, j, ' ');
+								map->Map_Input(0, i, j + 2, '6');
 								for_dupulicate[150 * (j + 2) + i] = 1;
 							}
 						}
@@ -305,9 +306,9 @@ int Play::Map_Engine()
 					case(54):   // 6   up
 					{
 						if (j > 3) {
-							if (map.map_txt[j - 2][i] == ' ') {
-								map.Map_Input(0, i, j, ' ');
-								map.Map_Input(0, i, j - 2, '5');
+							if (map->map_txt[j - 2][i] == ' ') {
+								map->Map_Input(0, i, j, ' ');
+								map->Map_Input(0, i, j - 2, '5');
 								for_dupulicate[150 * (j - 2) + i] = 1;
 							}
 						}
@@ -317,9 +318,9 @@ int Play::Map_Engine()
 					case(55):   // 7 right
 					{
 						if (i < 145) {
-							if (map.map_txt[j][i + 4] == ' ') {
-								map.Map_Input(0, i, j, ' ');
-								map.Map_Input(0, i + 4, j, '8');
+							if (map->map_txt[j][i + 4] == ' ') {
+								map->Map_Input(0, i, j, ' ');
+								map->Map_Input(0, i + 4, j, '8');
 								for_dupulicate[150 * j + (i + 4)] = 1;
 							}
 						}
@@ -328,9 +329,9 @@ int Play::Map_Engine()
 					case(56):   // 8 left
 					{
 						if (i > 5) {
-							if (map.map_txt[j][i - 4] == ' ') {
-								map.Map_Input(0, i, j, ' ');
-								map.Map_Input(0, i - 4, j, '7');
+							if (map->map_txt[j][i - 4] == ' ') {
+								map->Map_Input(0, i, j, ' ');
+								map->Map_Input(0, i - 4, j, '7');
 								for_dupulicate[150 * j + i - 4] = 1;
 							}
 						}
@@ -339,67 +340,67 @@ int Play::Map_Engine()
 
 					case(57):   // 9  straight left
 					{
-						if (i > 5 && map.map_txt[j][i - 1] != 127 
-							&& map.map_txt[j][i - 2] != 127 
-							&& map.map_txt[j][i - 3] != 127
-							&& map.map_txt[j][i - 4] == ' ') {
-							if (map.map_txt[j][i - 4] == ' ') {
-								map.Map_Input(0, i, j, ' ');
-								map.Map_Input(0, i - 4, j, '9');
+						if (i > 5 && map->map_txt[j][i - 1] != 127 
+							&& map->map_txt[j][i - 2] != 127 
+							&& map->map_txt[j][i - 3] != 127
+							&& map->map_txt[j][i - 4] == ' ') {
+							if (map->map_txt[j][i - 4] == ' ') {
+								map->Map_Input(0, i, j, ' ');
+								map->Map_Input(0, i - 4, j, '9');
 								for_dupulicate[150 * j + i - 4] = 1;
 							}
 						}
 						else {
-							map.Map_Input(0, i, j, '0');
+							map->Map_Input(0, i, j, '0');
 						}
 						break;
 					}
 					case(48):   // 0 right
 					{
-						if (i < 145 && map.map_txt[j][i + 1] != 127
-							&& map.map_txt[j][i + 2] != 127
-							&& map.map_txt[j][i + 3] != 127
-							&& map.map_txt[j][i + 4] == ' ') {
-							if (map.map_txt[j][i + 4] == ' ') {
-								map.Map_Input(0, i, j, ' ');
-								map.Map_Input(0, i + 4, j, '0');
+						if (i < 145 && map->map_txt[j][i + 1] != 127
+							&& map->map_txt[j][i + 2] != 127
+							&& map->map_txt[j][i + 3] != 127
+							&& map->map_txt[j][i + 4] == ' ') {
+							if (map->map_txt[j][i + 4] == ' ') {
+								map->Map_Input(0, i, j, ' ');
+								map->Map_Input(0, i + 4, j, '0');
 								for_dupulicate[150 * j + (i + 4)] = 1;
 							}
 						}
 						else {
-							map.Map_Input(0, i, j, '9');
+							map->Map_Input(0, i, j, '9');
 						}
 						break;
 					}
 
 					case(42):   // ` きらきら
 					{
-						map.Map_Input(0, i, j, 39);
+						map->Map_Input(0, i, j, 39);
 						break;
 					}
 					case(39):   // " きらきら
 					{
-						map.Map_Input(0, i, j, 34);
+						map->Map_Input(0, i, j, 34);
 						break;
 					}
 					case(34):   // ^ きらきら
 					{
-						map.Map_Input(0, i, j, 94);
+						map->Map_Input(0, i, j, 94);
 						break;
 					}
 					case(94):   // * きらきら
 					{
-						map.Map_Input(0, i, j, 44);
+						map->Map_Input(0, i, j, 44);
 						break;
 					}
 					case(44):   // , きらきら
 					{
-						map.Map_Input(0, i, j, 46);
+						map->Map_Input(0, i, j, 46);
 						break;
 					}
 					case(46):   // . きらきら
 					{
-						map.Map_Input(0, i, j, 42);
+						map->Map_Input(0, i, j, 42);
 						break;
 					}
 				}
@@ -420,7 +421,7 @@ void Play::Player_Engine()
 	// make array of a map of subset where player is in 
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 2; j++) {
-			map_where_player[2*i+j] = map.map_txt[player.y+i][player.x+j];
+			map_where_player[2*i+j] = map->map_txt[player.y+i][player.x+j];
 		}
 	}	
 	for (int i = 0; i < 10; i++) {   // check touched Thorn => game over
@@ -438,7 +439,7 @@ void Play::Player_Engine()
 	}
 	for (int i = 2; i < 8; i++) {   // check getting points
 		if (map_where_player[i] == 14) {
-			map.Map_Input(0, player.x + i % 2, player.y + i / 2 , ' ');
+			map->Map_Input(0, player.x + i % 2, player.y + i / 2 , ' ');
 			if(points<10)   // max is 10
 				points += 1;
 			sound->On(4);
@@ -466,14 +467,14 @@ void Play::Player_Engine()
 			sound->On(5);
 		}
 		player.Move(2);
-		map.Move_Frame(1);
+		map->Move_Frame(1);
 		sound->On(6);
 	}
 
 	if (is_player_jump==1) {    //  falling
 		if (player.y == 30) {
 			player.Move(2);
-			map.Move_Frame(1);
+			map->Move_Frame(1);
 		}
 		else {
 			player.Move(3);

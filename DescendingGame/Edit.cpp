@@ -3,7 +3,7 @@
 
 Edit::Edit(Manipulate_Screen *scr)
 {
-	map = Map(scr);
+	map = std::make_unique<Map>(scr);
 	player = Player(scr, 3, 3);
 
 	cur_obj->push_back(6);  //  -
@@ -26,7 +26,7 @@ Edit::Edit(Manipulate_Screen *scr)
 
 void Edit::Reset()
 {
-	map = Map(scr);
+	map = std::make_unique<Map>(scr);
 	player.Reset(3, 3);
 
 	player_direct = 0;
@@ -59,7 +59,7 @@ void Edit::New_or_Load()
 			if (_kbhit()) {
 				scr->Flipping();
 				cur[0] = _getch();
-				_getch();
+				//_getch();
 				if (cur[0] == 8) {
 					if (input.length()) {
 						cur[0] = ' ';
@@ -78,12 +78,12 @@ void Edit::New_or_Load()
 		delete[] cur;
 
 		if (input.substr(0, 3).compare("new")==0) {
-			map.New(input.substr(4, input.length() - 5));
+			map->New(input.substr(4, input.length() - 5));
 			this->map_name = input.substr(4, input.length() - 5);
 			is_on = 1;
 		}
 		else if (input.substr(0, 4).compare("load")==0) {
-			map.Load(input.substr(5, input.length() - 6));
+			map->Load(input.substr(5, input.length() - 6), 0);
 			this->map_name = input.substr(5, input.length() - 6);
 			is_on = 1;
 		}
@@ -93,7 +93,7 @@ void Edit::New_or_Load()
 void Edit::Show()
 {
 	if (is_on == 1) {
-		map.Show();
+		map->Show();
 		player.Show();
 		Option_Show();
 	}
@@ -101,7 +101,7 @@ void Edit::Show()
 
 void Edit::Option_Show()
 {
-	string text = "map name is " + map.name + " and cur char is ";
+	string text = "map name is " + map->name + " and cur char is ";
 	std::vector<char> writable(text.begin(), text.end());
 	writable.push_back(cur_obj->at(cur_obj_num));
 	writable.push_back('\0');
@@ -127,7 +127,7 @@ void Edit::Check_Input(int var)
 		case 2:   // up
 		{
 			if (player.y == 2) {
-				map.Move_Frame(0);
+				map->Move_Frame(0);
 				player.Move(3);
 			}
 			else {
@@ -140,7 +140,7 @@ void Edit::Check_Input(int var)
 		{
 			if (player.y == 36) {
 				player.Move(2);
-				map.Move_Frame(1);
+				map->Move_Frame(1);
 			}
 			else {
 				player.Move(var);
@@ -161,14 +161,14 @@ void Edit::Check_Input(int var)
 		}
 		case 6:   // put
 		{
-			map.Map_Input(0, player.x, player.y, cur_obj->at(cur_obj_num));
+			map->Map_Input(0, player.x, player.y, cur_obj->at(cur_obj_num));
 			break;
 		}
 		case 7:   // roll
 		{
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 3; j++) {
-					map.Map_Input(0, player.x+i, player.y+j, cur_obj->at(cur_obj_num));
+					map->Map_Input(0, player.x+i, player.y+j, cur_obj->at(cur_obj_num));
 				}
 			}
 			break;
@@ -181,6 +181,6 @@ void Edit::Set_Test()
 {
 	this->player_x = player.x;
 	this->player_y = player.y;
-	this->cur_upon_line = map.cur_upon_line;
+	this->cur_upon_line = map->cur_upon_line;
 }
 

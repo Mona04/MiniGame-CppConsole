@@ -14,6 +14,7 @@ Map::Map(Manipulate_Screen* scr)
 
 Map::~Map()
 {
+	UnLoad();
 }
 
 void Map::New(string file_name)
@@ -39,15 +40,15 @@ void Map::New(string file_name)
 	oFile.close();
 }
 
-void Map::Load(string file_name)
+void Map::Load(string file_name, int mode)
 {
-	this->name = file_name;
-	file_path += file_name + ".txt";
-}
-
-void Map::Load(string file_name, int var)
-{
-	if (var == 1) {
+	// Editor Load
+	if (mode == 0) {
+		this->name = file_name;
+		file_path += file_name + ".txt";
+	}
+	// OnPlay Load
+	if (mode == 1) {
 		this->name = file_name;
 		string origin = file_path + file_name + ".txt";
 		file_path += file_name + "_pasted.txt";
@@ -61,27 +62,34 @@ void Map::Load(string file_name, int var)
 
 }
 
+void Map::UnLoad()
+{
+	if (iFile.is_open())
+		iFile.close();
+	if (oFile.is_open())
+		oFile.close();
+}
+
 void Map::Map_Input(int var, int in_x, int in_y, char in_char)
 {
-	ofstream oFile;
-	oFile.open(file_path, ios::in | ios::out | fstream::ate);
+	if (iFile.is_open()) iFile.close();
+	if (!oFile.is_open()) oFile.open(file_path, ios::in | ios::out | fstream::ate);
+	
 	int cur = in_x  + (in_y + cur_upon_line) * 152;    
 	oFile.seekp(cur, ios::beg);
 	if (var == 0) {
 		char obj = in_char;
 		oFile.put(obj);
 	}
-	oFile.close();
 }
 
 void Map :: Show()
 {
-	ifstream iFile;
-	string text;
-
-	iFile.open(file_path);
+	if (oFile.is_open())  oFile.close();
+	if (!iFile.is_open()) iFile.open(file_path);
 	iFile.seekg(cur_upon_line * 152);
 
+	string text;
 	int temp_y = 0;
 
 	for(int i = 0 ; i<40 ; i++)
@@ -94,8 +102,6 @@ void Map :: Show()
 	};
 	getline(iFile, text);
 	map_txt[40] = text;
-
-	iFile.close();
 }
 
 void Map::Move_Frame(int var)
