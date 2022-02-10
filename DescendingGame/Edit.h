@@ -13,7 +13,7 @@ private:
 	std::unique_ptr<Map> map = nullptr;
 	Manipulate_Screen* scr;
 	
-	std::vector<char> cur_obj[30];
+	std::vector<char> cur_obj;
 	int cur_obj_num;
 	int player_direct;
 

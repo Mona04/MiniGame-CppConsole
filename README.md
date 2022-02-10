@@ -1,7 +1,5 @@
 # Descending-Game
 
-C++ Console Game
-
 [![YoutubeImage](https://img.youtube.com/vi/TWcySjsfLNE/0.jpg)](https://youtu.be/TWcySjsfLNE)
 
 [Full Infomation](https://mona04.github.io/posts/portfolio/Cpp-Console-MiniGame/)

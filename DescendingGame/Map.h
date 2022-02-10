@@ -28,7 +28,7 @@ public:
 	void New(string file_name);
 	void Load(string file_name, int mode);
 	void UnLoad();
-	void Map_Input(int var, int in_x, int in_y, char in_char);
+	void Map_Input(int mode, int in_x, int in_y, char in_char);
 	void Show();
 	void Move_Frame(int var);
 };

@@ -19,7 +19,7 @@ public:
 	int x;
 	int y;
 	Text_Obj();
-	Text_Obj(Manipulate_Screen* in_scr, string path, int x, int y);
+	Text_Obj(Manipulate_Screen* in_scr, string name, int x, int y);
 	~Text_Obj();
 	void Set(Manipulate_Screen* in_scr, string name, int in_x, int in_y, string* txt);
 	void Show();

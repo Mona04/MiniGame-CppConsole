@@ -70,14 +70,14 @@ void Map::UnLoad()
 		oFile.close();
 }
 
-void Map::Map_Input(int var, int in_x, int in_y, char in_char)
+void Map::Map_Input(int mode, int in_x, int in_y, char in_char)
 {
 	if (iFile.is_open()) iFile.close();
 	if (!oFile.is_open()) oFile.open(file_path, ios::in | ios::out | fstream::ate);
 	
 	int cur = in_x  + (in_y + cur_upon_line) * 152;    
 	oFile.seekp(cur, ios::beg);
-	if (var == 0) {
+	if (mode == 0) {
 		char obj = in_char;
 		oFile.put(obj);
 	}

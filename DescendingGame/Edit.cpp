@@ -6,18 +6,18 @@ Edit::Edit(Manipulate_Screen *scr)
 	map = std::make_unique<Map>(scr);
 	player = Player(scr, 3, 3);
 
-	cur_obj->push_back(6);  //  -
-	cur_obj->push_back(14);  // ¢Ý
-	cur_obj->push_back(127); // ¡à
-	cur_obj->push_back(30);   // ¡ã
-	cur_obj->push_back(31);   // ¡å
-	cur_obj->push_back(38);  //  &
-	cur_obj->push_back(32);  //  " "
+	cur_obj.push_back(6);  //  -
+	cur_obj.push_back(14);  // ¢Ý
+	cur_obj.push_back(127); // ¡à
+	cur_obj.push_back(30);   // ¡ã
+	cur_obj.push_back(31);   // ¡å
+	cur_obj.push_back(38);  //  &
+	cur_obj.push_back(32);  //  " "
 	for (int i = 0; i < 10; i++) {
-		cur_obj->push_back(48+i);  //  "0+i"
+		cur_obj.push_back(48+i);  //  "0+i"
 	}
-	cur_obj->push_back(42);  //  aster *
-	cur_obj->push_back(39);  //   `
+	cur_obj.push_back(42);  //  aster *
+	cur_obj.push_back(39);  //   `
 
 	this->scr = scr;
 
@@ -103,7 +103,7 @@ void Edit::Option_Show()
 {
 	string text = "map name is " + map->name + " and cur char is ";
 	std::vector<char> writable(text.begin(), text.end());
-	writable.push_back(cur_obj->at(cur_obj_num));
+	writable.push_back(cur_obj.at(cur_obj_num));
 	writable.push_back('\0');
 	scr->Print(0, 0, &writable[0]);
 }
@@ -161,14 +161,14 @@ void Edit::Check_Input(int var)
 		}
 		case 6:   // put
 		{
-			map->Map_Input(0, player.x, player.y, cur_obj->at(cur_obj_num));
+			map->Map_Input(0, player.x, player.y, cur_obj.at(cur_obj_num));
 			break;
 		}
 		case 7:   // roll
 		{
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 3; j++) {
-					map->Map_Input(0, player.x+i, player.y+j, cur_obj->at(cur_obj_num));
+					map->Map_Input(0, player.x+i, player.y+j, cur_obj.at(cur_obj_num));
 				}
 			}
 			break;
